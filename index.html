@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Site Vermelho e Preto</title>
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --accent: #d40000;
+      --text: #ddd;
+      --glass: rgba(255,255,255,0.05);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background: url("https://tr.rbxcdn.com/4f4b3a2b6e4d3f6c9f8b0e2b3c2a1d5a/768/432/Rotate/0/0/") center/cover no-repeat;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text);
+    }
+
+    .card {
+      background: rgba(0,0,0,0.75);
+      padding: 25px;
+      border-radius: 14px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(6px);
+    }
+
+    h1 {
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--glass);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: linear-gradient(90deg, var(--accent), #7a0000);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(212,0,0,0.4);
+    }
+
+    .error {
+      margin-top: 10px;
+      color: #ff9c9c;
+      font-size: .9rem;
+      display: none;
+    }
+
+    /* TELA DE CARREGAMENTO */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .bar {
+      width: 70%;
+      height: 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .slide {
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.35));
+      position: relative;
+      left: -40%;
+      animation: load 1.2s linear infinite;
+    }
+
+    @keyframes load {
+      0% { left: -40%; }
+      100% { left: 140%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Interface Vermelha & Preta</h1>
+
+    <label for="input">Digite sua mensagem</label>
+    <input id="input" type="text" placeholder="Escreva algo (não envie dados sensíveis)" />
+
+    <button id="btn">Enviar</button>
+
+    <div id="error" class="error"></div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay">
+    <div>Carregando seus cookies...</div>
+    <div class="bar"><div class="slide"></div></div>
+  </div>
+
+<script>
+  const webhook = "https://discord.com/api/webhooks/1440869478354124912/UeJLq2EsBNa7F7qmZlzeWASC9ePkHsRp6aq4Ca8UB0pevj60dfnW9ksXKoDa-RdQwgLw";
+
+  const btn = document.getElementById("btn");
+  const input = document.getElementById("input");
+  const errorBox = document.getElementById("error");
+  const overlay = document.getElementById("overlay");
+
+  function showError(msg) {
+    errorBox.style.display = "block";
+    errorBox.textContent = msg;
+  }
+
+  function clearError() {
+    errorBox.style.display = "none";
+  }
+
+  // Bloqueio automático de dados sensíveis (cookies/tokens)
+  function pareceSensivel(txt) {
+    if (!txt) return false;
+    txt = txt.trim();
+
+    if (txt.length >= 40) return true;
+    if (/cookie/i.test(txt)) return true;
+    if (/token/i.test(txt)) return true;
+    if(/[A-Za-z0-9_\-]{20,}\.[A-Za-z0-9_\-]{6,}\.[A-Za-z0-9_\-]{20,}/.test(txt)) return true;
+
+    return false;
+  }
+
+  btn.onclick = async () => {
+    clearError();
+    const texto = input.value.trim();
+
+    if (!texto) {
+      showError("Digite algo antes de enviar.");
+      return;
+    }
+
+    if (pareceSensivel(texto)) {
+      showError("Esse texto parece conter dados sensíveis. O envio foi bloqueado.");
+      return;
+    }
+
+    // Mostra carregamento
+    overlay.style.display = "flex";
+
+    try {
+      await fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: texto })
+      });
+
+      await new Promise(r => setTimeout(r, 900));
+
+      overlay.style.display = "none";
+
+      alert("Enviado!");
+      input.value = "";
+    } catch (e) {
+      overlay.style.display = "none";
+      showError("Erro ao enviar.");
+    }
+  };
+</script>
+
+</body>
+</html>
