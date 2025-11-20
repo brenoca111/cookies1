@@ -6,37 +6,78 @@
     <title>yoshin metods</title>
 
     <style>
-        /* -------- GERAL -------- */
+        /* -------- FUNDO PRETO + LOGO ROBLOX -------- */
         body {
             margin: 0;
             padding: 0;
             font-family: "Arial", sans-serif;
-            background: #000;
+            background: #000000;
             color: white;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* -------- EFEITO DE LUZ NO FUNDO -------- */
-        .neon-bg {
+        .logo-bg {
             position: fixed;
-            width: 100%;
-            height: 100%;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/0/0a/Roblox_Logo_2022.svg') no-repeat center;
+            background-size: contain;
+            opacity: 0.06;
+            transform: translate(-50%, -50%);
             pointer-events: none;
-            background: radial-gradient(circle at top left, #ff000033, transparent),
-                        radial-gradient(circle at bottom right, #ff000033, transparent);
-            animation: glowMove 8s infinite alternate ease-in-out;
-        }
-
-        @keyframes glowMove {
-            0% { filter: blur(40px); opacity: 0.6; }
-            100% { filter: blur(70px); opacity: 1; }
+            filter: drop-shadow(0 0 25px red);
         }
 
         /* -------- CONTAINER -------- */
         .container {
-            width: 450px;
-            margin: 120px auto;
+            position: relative;
+            width: 480px;
+            margin: 140px auto;
             background: #0c0c0c;
-            padding: 30px;
+            padding: 35px;
             border-radius: 20px;
-            text-a
+            text-align: center;
+            box-shadow: 0 0 35px #ff000055;
+            border: 2px solid #ff0000bb;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* -------- TEXTO 3D / NEON -------- */
+        h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+            color: #ff1c1c;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 10px red,
+                0 0 20px red,
+                0 0 40px #ff0000,
+                0 0 70px #ff0000,
+                2px 2px 0px #5c0000; /* efeito 3D */
+        }
+
+        /* -------- INPUT -------- */
+        input {
+            width: 90%;
+            padding: 14px;
+            margin-top: 25px;
+            border-radius: 10px;
+            border: 2px solid #ff0000bb;
+            background: #1a1a1a;
+            color: white;
+            font-size: 17px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            box-shadow: 0 0 18px red;
+            border-color: #ff2b2b;
+        }
